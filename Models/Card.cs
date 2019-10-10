@@ -1,0 +1,80 @@
+using System.Collections.Generic;
+
+namespace GoFish.Models
+{
+    public class Card
+    {
+        public static List<Card> Deck = CreateDeck().ShuffleDeck();
+
+        public string Suit { get; }
+        public string Value { get; }
+        public int Player { get; set; }
+        public bool Color { get; }
+        private static List<string> _values = new List<string> { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
+        private static List<string> _suits = new List<string> { "clubs", "spades", "hearts", "diamonds" };
+        public Card(string suit, string value, bool color)
+        {
+            Value = value;
+            Suit = suit;
+            Player = 0;  // represents deck
+            Color = color;
+        }
+
+        public List<Card> CreateDeck()
+        {
+            List<Card> deck = new List<Card> { };
+            for (int i = 0; i < _suits.Count; i++)
+            {
+                for (int j = 0; j < _values.Count; j++)
+                {
+                    bool color = (_suits[i] == "diamonds" || _suits[i] == "hearts") ? true : false;
+                    Card card = new Card(_suits[i], _values[j], color);
+                    deck.Add();
+                }
+            }
+            return deck;
+        }
+
+        public void ShuffleDeck()
+        {
+            List<Card> shuffledDeck = new List<Card> { };
+            Random rnd = new Random();
+            for (int i = 0; i < 52; i++)
+            {
+                bool cardAvailable = false;
+                int index = rnd.Next(0, Deck.Count);
+                shuffledDeck.Add(Deck[index]);
+                Deck.Remove(Deck[index]);
+            }
+            Deck = shuffledDeck;
+        }
+
+        public void DealCard(int playerNum)
+        {
+            for (int i = 0; i < 52; i++)
+            {
+                if (Deck[i].Player == 0)
+                {
+                    Player = playerNum;
+                    break;
+                }
+            }
+        }
+
+        public void InitialDeal(int playerCount)
+        {
+            for(int i = 0; i < 7; i++)
+            {
+                for(int j = 0; j < playerCount; j++)
+                {
+                    DealCard(j);
+                }
+            }
+        }
+
+        public void FindCard()
+        {
+            
+        }
+    }
+}
