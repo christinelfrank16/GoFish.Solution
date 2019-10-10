@@ -11,6 +11,7 @@ namespace GoFish.Models
         public string Value { get; }
         public int Player { get; set; }
         public bool Color { get; }
+        public bool IsMatched { get; set; }
         private static List<string> _values = new List<string> { "ace", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king" };
         private static List<string> _suits = new List<string> { "clubs", "spades", "hearts", "diamonds" };
         public Card(string suit, string value, bool color)
@@ -19,6 +20,7 @@ namespace GoFish.Models
             Suit = suit;
             Player = 0;  // represents deck
             Color = color;
+            IsMatched = false;
         }
 
         public List<Card> CreateDeck()
@@ -89,5 +91,11 @@ namespace GoFish.Models
         {
             card.Player = newPlayer;
         }
+
+        public void CheckForMatch(int playerNum)
+        {
+            
+        }
+
     }
 }
