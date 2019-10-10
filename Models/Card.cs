@@ -50,16 +50,17 @@ namespace GoFish.Models
             Deck = shuffledDeck;
         }
 
-        public void DealCard(int playerNum)
+        public bool DealCard(int playerNum)
         {
             for (int i = 0; i < 52; i++)
             {
                 if (Deck[i].Player == 0)
                 {
                     Player = playerNum;
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
 
         public void InitialDeal(int playerCount)
@@ -72,6 +73,11 @@ namespace GoFish.Models
                 }
             }
         }
+        public Card FindCard(int playerNum, string value)
+        {
+            Card foundCard = Deck.Where(card => (card.Player == playerNum && card.Value == value)).FirstOrDefault();
+            return foundCard;
+        }
 
         public Card FindCard(int playerNum, string suit, string value)
         {
@@ -79,9 +85,9 @@ namespace GoFish.Models
             return foundCard;
         }
 
-        public void GiveCard()
+        public void GiveCard(Card card, int newPlayer)
         {
-            
+            card.Player = newPlayer;
         }
     }
 }
