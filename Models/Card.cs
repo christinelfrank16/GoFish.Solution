@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GoFish.Models
 {
@@ -72,7 +73,13 @@ namespace GoFish.Models
             }
         }
 
-        public void FindCard()
+        public Card FindCard(int playerNum, string suit, string value)
+        {
+            Card foundCard = Deck.Where(card => (card.Player == playerNum && card.Suit == suit && card.Value == value)).FirstOrDefault();
+            return foundCard;
+        }
+
+        public void GiveCard()
         {
             
         }
